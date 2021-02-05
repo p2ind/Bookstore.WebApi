@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Bookstore.Core;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -10,15 +11,17 @@ namespace Bookstore.WebApi.Controllers
     [ApiController]
     [Route("[controller]")]
     public class BooksController : ControllerBase
-    {        
-        public BooksController()
+    {
+        private readonly IBookServices _bookServices;
+        public BooksController(IBookServices bookServices)
         {
+            _bookServices = bookServices;
         }        
 
         [HttpGet]
         public IActionResult GetBooks()
         {
-
+            return Ok(_bookServices.GetBooks());
         }
     }
 }
